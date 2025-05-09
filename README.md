@@ -1,6 +1,6 @@
 # Docker Compose Media Stack with VPN Integration
 
-This repository provides Docker Compose configurations for setting up a media server stack with integrated VPN functionality. It includes essential services for managing and automating your media collection, ensuring privacy, and streamlining downloads. The stack leverages **Gluetun** to route all traffic securely through a VPN.
+This repository provides Docker Compose configurations for setting up a media requester stack with integrated VPN functionality. It includes essential services for managing and automating your media collection, ensuring privacy, and streamlining downloads. The stack leverages **Gluetun** to route all traffic securely through a VPN.
 
 ## Features:
 - **SABnzbd**: Automate NZB downloads with robust configuration.
