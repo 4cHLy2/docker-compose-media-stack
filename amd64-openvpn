@@ -107,7 +107,7 @@ services:
     restart: unless-stopped
     
   clamav:
-    image: clamav/clamav:1.4
+    image: clamav/clamav-debian:latest
     container_name: clamav-scan
     volumes:
       - ${MediaPath}:/scan:ro
@@ -117,12 +117,14 @@ services:
       apt-get install -y clamav && \
       freshclam && \
       while true; do \
-        clamscan --recursive --include='\.mkv$' /scan && \
+        echo 'Starting scan...' && \
+        clamscan --recursive --include='\\.mkv$' /scan > /tmp/last_scan.log && \
+        grep 'Infected files: 0' /tmp/last_scan.log && \
         echo 'Scan completed. Waiting for 6 hours...' && \
         sleep 6h; \
       done"
     healthcheck:
-      test: ["CMD", "bash", "-c", "clamscan --recursive --include='\.mkv$' /scan | grep -q 'Infected files: 0' || exit 1"]
+      test: ["CMD", "bash", "-c", "grep -q 'Infected files: 0' /tmp/last_scan.log"]
       interval: 30m
       retries: 3
       start_period: 10s
